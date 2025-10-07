@@ -1,30 +1,30 @@
 public without sharing class CM_CommonConstants {
-    // Constants for Permission Set Groups
-    public static final String PSG_APPROVAL = 'cm_ApprovGrPermSet'; // Approval Group
-    public static final String PSG_DOCU = 'cm_DocuGrPermSet'; // Document Group
-    public static final String PSG_STANDARD = 'cm_StdGrPermSet'; // Standard Group
+    // Permission Set Group developer names
+    public static final String PSG_APPROVAL = 'cm_ApprovGrPermSet';
+    public static final String PSG_DOCU = 'cm_DocuGrPermSet';
+    public static final String PSG_STANDARD = 'cm_StdGrPermSet';
 
-    // Constants for Permission Sets
-    public static final String PS_STANDARD = 'cm_StandardPermSet'; // Standard Permission Set
-    public static final String PS_HQ_STANDARD = 'cm_HQStandardPermSet'; // HQ Standard Permission Set
+    // Permission Set developer names (PermissionSet.Name)
+    public static final String PS_STANDARD = 'cm_StandardPermSet';
+    public static final String PS_HQ_STANDARD = 'cm_HQStandardPermSet';
 
-    // Profile name constants
-    public static final String PROFILE_NCINO_EMPLOYEE = 'nCino行員プロファイル'; // Target profile name
+    // Profile label to match (Profile.Name)
+    public static final String PROFILE_NCINO_EMPLOYEE = 'nCino行員プロファイル';
 
-    // Role developer name constants
-    public static final String ROLE_HQ = 'cm_Headquarters'; // Target role dev name
+    // UserRole.DeveloperName to match
+    public static final String ROLE_HQ = 'cm_Headquarters';
 
     // Rule model that defines matching criteria and permission artifacts
     public class AssignmentRule {
-        public String constantName; // Name to identify the rule
-        public Set<String> officerCodes; // Officer_Codes__c values to match
-        public Set<String> cmCategories; // cm_Category__c values to match
-        public Set<String> excludedDepartments; // Departments that must NOT match
-        public Set<String> includedDepartments; // Departments that must match (optional)
-        public String profileName; // Profile name to match
-        public String roleDeveloperName; // UserRole.DeveloperName to match
+        public String constantName; // Rule label for maintainers
+        public Set<String> officerCodes; // Match Officer_Codes__c values
+        public Set<String> cmCategories; // Match cm_Category__c values
+        public Set<String> excludedDepartments; // Department values to EXCLUDE
+        public Set<String> includedDepartments; // Department values to INCLUDE (optional)
+        public String profileName; // Match Profile.Name
+        public String roleDeveloperName; // Match UserRole.DeveloperName
         public Set<String> permissionSetGroupDeveloperNames; // PSG developer names to assign
-        public Set<String> permissionSetDeveloperNames; // PS developer names to assign
+        public Set<String> permissionSetDeveloperNames; // PermissionSet.Name values to assign
 
         public AssignmentRule(
             String constantName,
@@ -126,7 +126,21 @@ public without sharing class CM_CommonConstants {
             new Set<String>{PS_STANDARD, PS_HQ_STANDARD} // PSs to assign
         ));
 
-        // Add more rules here by copying the snippet above
+        /*
+         * TEMPLATE: Copy, paste, and edit to add another combination
+         *
+         * rules.add(new AssignmentRule(
+         *     'YOUR RULE NAME HERE',
+         *     new Set<String>{'OfficerCodeA','OfficerCodeB'}, // Officer_Codes__c values (leave empty set if not used)
+         *     new Set<String>{'Standard','Another'},         // cm_Category__c values (leave empty set if not used)
+         *     new Set<String>{'DeptToExclude1','DeptToExclude2'}, // Department values to EXCLUDE (NOT)
+         *     null, // OR use: new Set<String>{'DeptToInclude1','DeptToInclude2'} (Department values to INCLUDE)
+         *     'Profile Label Here',          // Profile.Name to match (e.g., nCino行員プロファイル)
+         *     'RoleDeveloperNameHere',       // UserRole.DeveloperName to match (e.g., cm_Headquarters)
+         *     new Set<String>{'PSG_DevName1','PSG_DevName2'}, // Permission Set Group DeveloperName values
+         *     new Set<String>{'PS_DevName1','PS_DevName2'}    // Permission Set Developer Name values (PermissionSet.Name)
+         * ));
+         */
 
         return rules;
     }
